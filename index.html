@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang=en>
+	<head>
+		<meta charset='utf-8' />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<title>
+			To-do : Task Manager
+		</title>
+		<!------------------------------------------------------------------------------------------>
+		<!--CSS : Links-->
+		<link 	rel="stylesheet" 
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
+			integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" 
+			crossorigin="anonymous"
+		/>
+	</head>
+	<body>
+		<!--Navigation Bar-->
+		<nav class="navbar navbar-dark bg-dark navbar-expand-sm fixed-top">
+			<button class="navbar-toggler" data-toggle='collapse' data-target='#topNav'>
+				<span class='navbar-toggler-icon'></span>
+			</button>
+			<div id='topNav' class="collapse navbar-collapse">
+				<ul class='navbar-nav'>
+					<li class='nav-item'>
+						<a class="nav-link active" href='./index.html'>Home</a>
+					</li>
+					<li class='nav-item'>
+						<a class='nav-link' href='#'>Manual</a>
+					</li>
+					<li class='nav-item'>
+						<a class='nav-link' href='#'>About</a>
+					</li>
+					<li class='nav-item'>
+						<a class='nav-link' href='https://pesitsouth.pes.edu/'>College Site</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+
+
+		<!--User Registration and Login-->
+		<header>
+			<div class='container'>
+				<div class='row'>
+					<div class="col-md-3 col-sm-4 col-xs-12"></div>
+					<!-----Sign-IN----->
+					<div id='sign-in' class="col-md-6 col-sm-12 col-xs-12">
+						<form>
+							<h1>Sign in</h1>
+							<div class='form-group'>
+								<label for="email_Signin">Email</label>
+								<input id='email_Signin' class='form-control' type='email' placeholder="Enter Email Address Here..." />
+							</div>
+							<div class='form-group'>
+								<label for="password_Signin">Password</label>
+								<input id='password_Signin' class='form-control' type='password' placeholder="Enter Password Here..." />
+							</div>
+							<div class='form-group'>
+								<div id='show-forgot'><span>forgot my password?</span></div>
+							</div>
+							<div class='checkbox'>
+								<label>
+									<input id='rememberMe' type='checkbox' /> Remember Me
+								</label>
+							</div>
+							<center>
+								<div class='form-group'>
+									<input id='success_Signin' class="btn btn-success btn-block" type='submit' value='Signin' />
+								</div>
+								<div id='show-signup'><span>Signup</span></div>
+							</center>
+						</form>
+					</div>
+
+					<!-----Sign-UP----->
+					<div id='sign-up' class="col-md-6 col-sm-12 col-xs-12">
+						<form>
+							<h1>Sign up</h1>
+							<div class='form-group'>
+								<label for="name_Signup">Name</label>
+								<input id='name_Signup' class='form-control' type='text' placeholder="Enter Your Name..." />
+							</div>
+							<div class='form-group'>
+								<label for="email_Signup">Email</label>
+								<input id='email_Signup' class='form-control' type='email' placeholder="Enter Email Address Here..." />
+							</div>
+							<div class='form-group'>
+								<label for="password_Signup">Password</label>
+								<input id='password_Signup' class='form-control' type='password' placeholder="Enter Password Here..." />
+							</div>
+							<div class='form-group'>
+								<label for="repass_Signup">Retype Password</label>
+								<input id='repass_Signup' class='form-control' type='password' placeholder="Enter Password Again..." />
+							</div>
+							<div class='checkbox'>
+								<label>
+									<input id='agree' type='checkbox' /> Terms and Condition
+								</label>
+							</div>
+							<center>
+								<div class='form-group'>
+									<input id='success_Signup' class="btn btn-success btn-block" type='submit' value='Signup' />
+								</div>
+								<div class='show-signin' class='form-group'><span>Signin</span></div>
+							</center>
+						</form>
+					</div>
+
+					<!-----Forgot Password : Email Confirmation----->
+					<div id='forgot' class="col-md-6 col-sm-12 col-xs-12">
+						<form>
+							<h1>Forgot Password??</h1>
+							<div class='form-group'>
+								<label for="email_forgot">Please enter your Email</label>
+								<input id='email_forgot' class='form-control' type='email' placeholder="Enter Email Address Here..." />
+							</div>
+							<center>
+								<div class='form-group'>
+									<input id='success_forgot' class="btn btn-success btn-block" type='button' value='Forgot' />
+								</div>
+								<div class='show-signin' class='form-group'><span>Signin</span></div>
+							</center>
+						</form>
+					</div>
+					<!-----Forgot Password : Response Message----->
+					<div id='forgot-message' class="col-md-6 col-sm-12 col-xs-12">
+						<form>
+							<h1>Forgot Password??</h1>
+							<p>Check your e-mail for password change confirmation, <br> - Thank You</p>
+							<button class="show-signin btn btn-danger btn-block"><span>Signin</span></button>
+						</form>
+					</div>
+					<div class="col-md-3 col-sm-4 col-xs-12"></div>
+				</div>
+			</div>
+		</header>
+
+
+		<!------------------------------------------------------------------------------------------>
+		<!--CSS : Styles-->
+		<style>
+			/*---------------Registration Page Form--------------------*/
+			header{
+				background-image	:	linear-gradient(rgba(0,0,0,0.9),rgba(100,100,100,0.3)),url("https://loremflickr.com/1920/1080");
+				background-size		:	contain;
+				background-repeat	:	no-repeat;
+				background-position	:	center;
+				height				:	100vh;
+			}
+			form{
+				color				: 	white;
+				padding				:	10%;
+				box-shadow			:	-1px 4px 26px 11px rgba(0,0,0,0.75);
+			}
+			#sign-in{
+				display				:	block;
+				padding-top			:	20vh;
+			}
+			#sign-up,#forgot,#forgot-message{
+				display				:	none;
+				padding-top			:	10vh;
+			}
+			#sign-up form{
+				padding-top			: 	3%;
+				padding-bottom		: 	1%;
+			}
+
+			#show-signup *,.show-signin *,#show-forgot *{
+				border				:	1px transparent white;
+			}
+			#show-signup *:hover,.show-signin *:hover,#show-forgot *:hover{
+				border-bottom		:	1px solid white;
+			}
+		</style>
+
+		<!------------------------------------------------------------------------------------------>
+		<!--Scripts-->
+		<script
+			  src="https://code.jquery.com/jquery-3.3.1.min.js"
+			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			  crossorigin="anonymous">
+		</script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" 
+			integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" 
+			crossorigin="anonymous">
+		</script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" 
+			integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" 
+			crossorigin="anonymous">
+		</script>
+
+		<script>
+			$('#show-signup').on('click',function(){
+				$('#sign-in').css('display','none');
+				$('#sign-up').css('display','none').fadeIn('slow');
+			});
+
+			$('#show-forgot').on('click',function(){
+				$('#sign-in').css('display','none');
+				$('#forgot').css('display','none').fadeIn('slow');
+			});
+
+			$('.show-signin').on('click',function(){
+				$('#sign-up').css('display','none');
+				$('#sign-in').css('display','none').fadeIn('slow');
+			});
+
+			$('#success_forgot').on('click',function(){
+				$('#forgot').css('display','none');
+				$('#forgot-message').css('display','none').fadeIn('slow');
+				//Reload After 5sec
+				setTimeout(function() {
+					location.reload();
+				}, 5000);
+			});
+			
+		</script>
+	</body>
+</html>
