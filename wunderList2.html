@@ -1,0 +1,309 @@
+
+<!DOCTYPE html>
+<html lang=en>
+	<head>
+		<meta charset='utf-8' />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<title>
+			To-do : Task Manager
+		</title>
+		<!------------------------------------------------------------------------------------------>
+		<!--CSS : Links-->
+		<link 	rel="stylesheet" 
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
+			integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" 
+			crossorigin="anonymous"
+		/>
+	</head>
+	<body>
+		<header>
+			<!--Navigation Bar-->
+			<nav class="navbar navbar-dark bg-dark navbar-expand-sm fixed-top">
+				<button class="navbar-toggler" data-toggle='collapse' data-target='#topNav'>
+					<span class='navbar-toggler-icon'></span>
+				</button>
+				<div id='topNav' class="collapse navbar-collapse">
+					<ul class='navbar-nav'>
+						<li class='nav-item'>
+							<a class="nav-link active" href='./index.html'>Home</a>
+						</li>
+						<li class='nav-item'>
+							<a class='nav-link' href='#'>Manual</a>
+						</li>
+						<li class='nav-item'>
+							<a class='nav-link' href='#'>About</a>
+						</li>
+						<li class='nav-item'>
+							<a class='nav-link' href='https://pesitsouth.pes.edu/'>College Site</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+			<!----------------------------------------------------------------------------------------------------------------->
+			<div id='wrapper'>
+				<!--SideMenu-->
+				<div id='sidebar-wrapper' class="bg-dark">
+					<button id='menu-toggler' class="navbar-dark navbar-toggler"><span class='navbar-toggler-icon'></span></button>
+					<ul id='sidebar-nav'>
+						<li>
+							<a href='#'>
+								<i>
+									<img 
+										width='50px' 
+										height='50px' 
+										src='https://cdn1.iconfinder.com/data/icons/hawcons/32/698925-icon-92-inbox-download-512.png'>
+								</i>
+								<span class='menu-text'>Inbox</span>
+							</a>
+						</li>
+						<li>
+							<a href='#'>
+								<i>
+									<img 
+										width='50px' 
+										height='50px' 
+										src='https://png.pngtree.com/svg/20170707/label_1242728.png'>
+								</i>
+								<span class='menu-text'>Group</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<!------------------------------------------------------------------------------------>
+				<!--Work-Area:To-Do-->
+				<div id='work-wrapper' class='container-fluid'>
+					<div class='row'>
+						<div class='col-lg-12'>
+							<div class="todo-add col-xs-12 col-md-8">
+								<input id='next-todo' type='text' placeholder="What needs to be done?..." />
+							</div>
+							<span class="center col-xs-12 col-md-1">
+								<input id='date-box' type='date' />
+							</span>
+							<span id='plus' class="center pd-xs-5 pd-md-1 icon-buttons col-xs-12 col-md-1">
+								<img
+									width='30px'
+									height='30px'
+									src='http://icons.iconarchive.com/icons/martz90/circle-addon1/128/text-plus-icon.png' />
+							</span>
+						</div>
+					</div><br/>
+					<!--To-Do List-->
+					<div class='row'>
+						<div class="check-list col-lg-12">
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+
+
+		<!------------------------------------------------------------------------------------------>
+		<!--Scripts-->
+		<script
+			  src="https://code.jquery.com/jquery-3.3.1.min.js"
+			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			  crossorigin="anonymous">
+		</script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" 
+			integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" 
+			crossorigin="anonymous">
+		</script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" 
+			integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" 
+			crossorigin="anonymous">
+		</script>
+
+		<script>
+			//Function to Strike and Unstrike
+			function completed(checked){
+				var text = $(checked).html();
+				if(text[0]!='<')
+				{
+					//NOTE
+					//Pawan : Code to send completed here.... variable 'text' consist the task
+					setTimeout(function(){$(checked).css('color','#666'); $(checked).html('<s>'+text+'</s>');},100);
+				}
+				else
+				{
+					output='';
+					for(var i=3;i<text.length-4;i++)
+						output+=text[i];
+					setTimeout(function(){$(checked).css('color','black');$(checked).html(output);},600);
+				}
+			}
+
+			//Window Resize Handler
+			$(window).on('resize',function(){
+				if($(this).width()>=780){
+					$('#wrapper').removeClass('menuDisplayed');
+					$('.menu-text').fadeIn();
+					//Work-Area Animation
+					$('#work-wrapper').css('transition','1.5s padding');
+					$('#work-wrapper').removeClass('small');
+				}
+				else if($(this).width()<=500){
+					$('#wrapper').addClass('menuDisplayed');
+					$('.menu-text').delay(300).fadeOut();
+					//Work-Area Animation
+					$('#work-wrapper').css('transition','1.5s padding');
+					$('#work-wrapper').addClass('small');
+				}
+			});
+			//Double Click Handler
+			function DB_ClickDelete(element)
+			{del(element);}
+
+			//Delete From List Event
+			function del(element){
+				$('#check'+element).fadeOut(300);
+				$('#delete'+element).fadeOut(300);
+			}
+
+			$().ready(function() {
+				if($(this).width()<=500){
+									$('#wrapper').addClass('menuDisplayed');
+									$('.menu-text').delay(300).fadeOut();
+									//Work-Area Animation
+									$('#work-wrapper').css('transition','1.5s padding');
+									$('#work-wrapper').addClass('small');
+				}
+
+				//Side-Menu and Work Area
+				$('#menu-toggler').on('click',function(){
+					//Side-Menu Animation
+					$('#wrapper').toggleClass('menuDisplayed');
+					$('.menu-text').delay(300).fadeToggle();
+					//Work-Area Animation
+					$('#work-wrapper').css('transition','1.5s padding');
+				});
+
+				//On Clicking Plus Button
+				var item=0;
+				$('#plus').on('click',function(){
+					if($('#next-todo').val())
+					{
+						item++;
+						var checklist = $('.check-list').html();
+						//Adding (To-do work to be done) to the List
+						checklist+="<div class='col-sm-8' style='display:none;' id='check"+(item)+"' ondblclick='DB_ClickDelete("+item+")' onclick='completed(check"+(item)+")'>"+$('#next-todo').val()+"<span>"+$('#date-box').val()+"</span></div>"+"<span id='delete"+item+"' class='icon-buttons'><img width='30px' height='30px' onclick='del("+item+")' src='https://cdn1.iconfinder.com/data/icons/color-bold-style/21/05-512.png' /> </span>";
+						$('.check-list').html(checklist);
+						$("#check"+(item)).fadeIn('slow');
+						$('#next-todo').val('');
+						$('#date-box').val('');
+					}
+				});
+				
+			});
+		</script>
+
+		<!------------------------------------------------------------------------------------------>
+		<!--CSS : Style-->
+		<style>
+			
+			*{-moz-user-select: none;		/*Remove Text selection or Text Highlight*/
+			  -webkit-user-select: none;
+			   border:0px;					/*Removes Dot Borders and Selection Box Outline*/
+			   outline:0px;
+			 }
+			.center{
+				margin			: 0 auto;
+			}
+			/*SideBar CSS*/
+			#sidebar-wrapper{
+				position		: fixed;
+				z-index			: 1;
+				padding-top		: 50px;
+				height			: 100vh;
+				width			: 200px;
+				overflow		: hidden;
+				transition		: 1.5s width;
+			}
+
+			#wrapper{max-width		: 100%;overflow		: hidden;}
+			#wrapper.menuDisplayed #sidebar-wrapper{
+				width	: 70px;
+			}
+			#sidebar-nav li{
+				list-style		: none;
+				text-indent		: -35px;
+			}
+			#sidebar-nav li a{
+				color			: white;
+				text-decoration : none;
+			}
+			#sidebar-nav li a:hover{
+				color			: gray;
+			}
+
+			/*Work-Area CSS*/
+			#work-wrapper{
+				padding-top		: 100px;
+				padding-left	: 215px;
+			}
+			#work-wrapper.small{
+				padding-left	: 1px;
+				margin-right	: 1px;
+			}
+			#wrapper.menuDisplayed #work-wrapper{
+				padding-left	: 85px;
+			}
+			/*Todo Input-Box Decoration*/
+			.todo-add{
+				display			: inline-block;
+				padding			: 5px;
+				border-radius	: 5px;
+				background-color: rgba(200,200,200,0.5);
+			}
+			.icon-buttons{
+				border			: none;
+				padding			: 1%;
+				margin			: 5px;
+			}
+			input[type=date]{
+				border			: 1px solid orange;
+				padding			: 1%;
+				border-radius	: 5px;
+			}
+			.todo-add input[type=text]{
+				text-indent		: 5%;
+				border			: none;
+				padding			: 1%;
+				background		: rgba(0,0,150,0.1);
+				width			: 100%;
+				border-radius	: 5px;
+				font-size		: 100%;
+				font-family		: sans-serif;
+				transition		: 1s background-color,1s padding,1s font-size;
+			}	
+			.todo-add input:focus{
+				width			: 100%;
+				background-color: rgba(250,250,180,1.0);
+				padding			: 2%;
+				font-size		: 150%;
+			}
+			.todo-add input::placeholder{color			: light-gray;}
+
+			/*CheckLists and CheckTexts*/
+			.check-list {
+				padding-left	: 1px;
+				margin			: 1px;
+				text-align		: center;
+				font-size		: 150%;
+			}
+			.check-list div{
+				display			: inline-block;
+				width			: 100%;
+				list-style		: none; 
+				margin			: 5px;
+				background-color: rgba(0,220,220,0.6);
+				border-radius	: 5px;
+			}
+			.check-list div span{
+				float	  		: right;
+				margin-right	: 1%;
+				color			: #fff;
+			}
+		</style>
+	</body>
+</html>
