@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang=en>
+	<head>
+		<meta charset='utf-8' />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<title>
+			To-do : Task Manager
+		</title>
+		<!------------------------------------------------------------------------------------------>
+		<!--CSS : Links-->
+		<link 	rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+			integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+			crossorigin="anonymous"
+		/>
+	</head>
+	<body>
+		<header>
+			<!--Navigation Bar-->
+			<nav class="navbar navbar-dark bg-dark navbar-expand-sm fixed-top">
+				<button class="navbar-toggler" data-toggle='collapse' data-target='#topNav'>
+					<span class='navbar-toggler-icon'></span>
+				</button>
+				<div id='topNav' class="collapse navbar-collapse">
+					<ul class='navbar-nav'>
+						<li class='nav-item'>
+							<a class="nav-link active" href='./index.html'>Home</a>
+						</li>
+						<li class='nav-item'>
+							<a class='nav-link' href='#'>Manual</a>
+						</li>
+						<li class='nav-item'>
+							<a class='nav-link' href='#'>About</a>
+						</li>
+						<li class='nav-item'>
+							<a class='nav-link' href='https://pesitsouth.pes.edu/'>College Site</a>
+						</li>
+					</ul>
+				</div>
+				<div>
+					<p>Welcome <%= user_name %></p>
+				</div>
+				<div>
+					<form class="" action="http://localhost:3000/logout" method="get">
+						<input type="submit" name="logout" value="Logout">
+					</form>
+				</div>
+			</nav>
+			<!----------------------------------------------------------------------------------------------------------------->
+			<div id='wrapper'>
+				<!--SideMenu-->
+				<div id='sidebar-wrapper' class="bg-dark">
+					<button id='menu-toggler' class="navbar-dark navbar-toggler"><span class='navbar-toggler-icon'></span></button>
+					<ul id='sidebar-nav'>
+						<li>
+							<a href='#'>
+								<i>
+									<img
+										width='50px'
+										height='50px'
+										src='https://cdn1.iconfinder.com/data/icons/hawcons/32/698925-icon-92-inbox-download-512.png'>
+								</i>
+								<span class='menu-text'>Inbox</span>
+							</a>
+						</li>
+						<li>
+							<a href='#'>
+								<i>
+									<img
+										width='50px'
+										height='50px'
+										src='https://png.pngtree.com/svg/20170707/label_1242728.png'>
+								</i>
+								<span class='menu-text'>Group</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<!------------------------------------------------------------------------------------>
+				<!--Work-Area:To-Do-->
+				<!-- <form action="http://localhost:3000/do-task" method="get"> -->
+					<div id='work-wrapper' class='container-fluid'>
+						<div class='row'>
+							<div class='col-lg-12'>
+									<div class="todo-add col-sm-12 col-md-8">
+										<input name = 'to_do' id='next-todo' type='text' placeholder="What needs to be done?..." required/>
+									</div>
+									<span id='plus' class='icon-buttons'>
+											<input id = 'plus_button' type="image" src = 'http://icons.iconarchive.com/icons/martz90/circle-addon1/128/text-plus-icon.png' value="">
+
+									</span>
+							</div>
+						</div><br/>
+					<!-- </form> -->
+					<button id = 'fetch' type="button" name="button">Fetch</button>
+					<div class='row'>
+						<div class="check-list col-md-8">
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+
+
+		<!------------------------------------------------------------------------------------------>
+		<!--Scripts-->
+		<script
+			  src="https://code.jquery.com/jquery-3.3.1.min.js"
+			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			  crossorigin="anonymous">
+		</script>
+		<script type = 'text/javascript'>
+			$(document).ready(() => {
+				console.log("Ready");
+			});
+			//var user_name = <%= user_name %>;
+			$('#fetch').on('click',function(){
+				$.ajax({
+					url: 'http://localhost:3000/fetch',
+					type: 'get',
+					dataType: 'json'
+				}).done(function(data){
+					console.log(data);
+					var checklist = $('.check-list').html();
+					for(var i=0;i<data.length;i++)
+					{
+						checklist += "<div>"+data[i].tasks+"</div";
+					}
+					$('.check-list').html(checklist);
+				});
+			})
+			$('#sample').on('click',function(){
+				$.ajax({
+					url : 'http://localhost:3000/sample',
+					type: 'get',
+					data: {name: 'pawan',age:'21'},
+					dataType: 'json',
+					success: function(){
+						console.log("Hello");
+					}
+				});
+			});
+			$('#plus_button').on('click',function(){
+				var tasks = $('#next-todo').val();
+				console.log(tasks);
+				$.ajax({
+					url : 'http://localhost:3000/do-task',
+					type: 'get',
+					data: {task:tasks},
+					dataType: 'json'
+				});
+
+			});
+		</script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+			integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+			crossorigin="anonymous">
+		</script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+			integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+			crossorigin="anonymous">
+		</script>
+
+		<script>
+			//Function to Strike and Unstrike
+			function completed(checked){
+				var text = checked.innerHTML;
+				if(text[0]!='<')
+				{
+					//NOTE
+					//Pawan : Code to send completed here.... variable 'text' consist the task
+					checked.innerHTML='<s>'+text+'</s>';
+				}
+				else
+				{
+					output='';
+					for(var i=3;i<text.length-4;i++)
+						output+=text[i];
+					checked.innerHTML=output;
+				}
+			}
+			$().ready(function() {
+				//Side-Menu and Work Area
+				$('#menu-toggler').on('click',function(){
+					//Side-Menu Animation
+					$('#wrapper').toggleClass('menuDisplayed');
+					$('.menu-text').delay(300).fadeToggle();
+					$('#work-wrapper').css('transition','1.5s padding');	//Work-Area Animation
+				});
+				var item=0;
+				$('#plus_button').on('click',function(){
+					console.log("FSAFds");
+					item++;
+					var checklist = $('.check-list').html();
+					checklist+="<div id=check"+(item)+" onclick='completed(check"+(item)+")'>"+$('#next-todo').val()+"</div>";
+					$('.check-list').html(checklist);
+				});
+
+			});
+		</script>
+
+		<!------------------------------------------------------------------------------------------>
+		<!--CSS : Style-->
+		<style>
+			*{-moz-user-select: none;
+			   border:0px;
+			   outline:0px;
+			 }
+			/*SideBar CSS*/
+			#sidebar-wrapper{
+				position		: absolute;
+				padding-top		: 10vh;
+				height			: 100vh;
+				width			: 200px;
+				overflow		: hidden;
+				transition		: 1.5s width;
+			}
+			#wrapper.menuDisplayed #sidebar-wrapper{
+				width	: 70px;
+			}
+			#sidebar-nav li{
+				list-style		: none;
+				text-indent		: -35px;
+			}
+			#sidebar-nav li a{
+				color			: white;
+				text-decoration : none;
+			}
+			#sidebar-nav li a:hover{
+				color			: gray;
+			}
+			/*Work-Area CSS*/
+			#work-wrapper{
+				padding-top		: 100px;
+				padding-left	: 215px;
+			}
+			#wrapper.menuDisplayed #work-wrapper{
+				padding-left	: 85px;
+			}
+			/*Todo Input-Box Decoration*/
+			.todo-add{
+				display			: inline-block;
+				padding			: 5px;
+				border-radius	: 5px;
+				background-color: rgba(200,200,200,0.5);
+			}
+			.icon-buttons{
+				border			: none;
+				padding			: 1%;
+				margin			: 5px;
+			}
+			.todo-add input{
+				text-indent		: 5%;
+				border			: none;
+				padding			: 1%;
+				background		: rgba(0,0,150,0.1);
+				width			: 100%;
+				border-radius	: 5px;
+				font-size		: 100%;
+				font-family		: sans-serif;
+				transition		: 1s background-color,1s padding,1s font-size;
+			}
+			.todo-add input:focus{
+				width			: 100%;
+				background-color: rgba(250,250,180,1.0);
+				padding			: 2%;
+				font-size		: 150%;
+			}
+			.todo-add input::placeholder{
+				color			: light-gray;
+			}
+			/*CheckLists and CheckTexts*/
+			.check-list {
+				margin			: 1%;
+				padding			: 1%;
+				text-align		: center;
+				font-size		: 150%;
+				color			: 5;
+			}
+			.check-list div{
+				list-style : none;
+				margin:5px;
+				background-color: rgba(0,220,220,0.6);
+				border-radius	: 5px;
+			}
+			p
+			{
+				color: white;
+				font-weight: bold;
+				font-style: normal;
+			}
+			#plus_button
+			{
+				width: 30px;
+				height: 30px;
+			}
+		</style>
+	</body>
+</html>
